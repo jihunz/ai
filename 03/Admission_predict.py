@@ -2,7 +2,7 @@ import pandas as pd
 
 # Data Loading
 path = './'
-data = pd.read_csv(path + '03.csv')
+data = pd.read_csv(path + 'Admission.csv')
 
 # Simple EDA
 data.shape
@@ -20,11 +20,12 @@ from sklearn.model_selection import train_test_split
 train_x, test_x, train_y, test_y = train_test_split(x, y, test_size=0.2, random_state=108)
 print(train_x.shape, train_y.shape, test_x.shape, test_y.shape)
 
+
+# model define
 import tensorflow as tf
 from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Dense
 
-# model define
 model = Sequential()
 
 model.add(Dense(4, activation='relu', input_dim=4))
@@ -38,11 +39,12 @@ model.compile(loss='mean_squared_error', optimizer='Adam')  # as this is Regress
 
 # train
 hist = model.fit(train_x, train_y, epochs=100, validation_split=0.2) # 1 epoch = 1 forward + 1 backpropagation
+
+# plotting training and validation loss
 import matplotlib
 matplotlib.use("TkAgg")
 import matplotlib.pyplot as plt
 
-# plotting training and validation loss
 plt.plot(hist.history['loss'])
 plt.plot(hist.history['val_loss'])
 plt.show()
